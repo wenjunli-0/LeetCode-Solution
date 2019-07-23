@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-		// simplest solution, loop...
+	// simplest solution, loop...
 		
         vector<int> result;
         
