@@ -1,6 +1,7 @@
 # coding task
 
 
+# tiktok search, 一面, 2.14
 # 连续子数组的最大乘积
 nums = [2, 5, 8, -1, 9]
 def maxProduct(nums):
