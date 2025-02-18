@@ -28,3 +28,12 @@ def count(graph):
                 res += 1
                 erase(graph, i, j)
     return res
+
+
+# test case
+graph = ["RRRRE", "RRERE", "RREEE", "EEEEE"]
+print(count(graph))     # 1
+
+
+
+
