@@ -55,3 +55,25 @@ print(next_greater_elements(nums))  # 输出: [3, 6, 6, 8, 8, -1]
 print(nextGreaterElement(nums))  # 输出: [3, 6, 6, 8, 8, -1]
 
 
+# LayerNorm
+import torch
+import torch.nn as nn
+
+class LayerNorm(nn.Module):
+    def __init__(self, hidden_dim, eps=1e-5):
+        super(LayerNorm, self).__init__()
+        self.eps = eps
+        self.gamma = nn.Parameter(torch.ones(hidden_dim))  # Scale parameter
+        self.beta = nn.Parameter(torch.zeros(hidden_dim))  # Shift parameter
+
+    def forward(self, x):
+        mean = x.mean(dim=-1, keepdim=True)  # Compute mean along feature dimension
+        var = x.var(dim=-1, unbiased=False, keepdim=True)  # Compute variance
+        x_norm = (x - mean) / torch.sqrt(var + self.eps)  # Normalize
+        return self.gamma * x_norm + self.beta  # Apply scale and shift
+
+# Explanation:
+# Compute Mean & Variance: We normalize across the last dimension (dim=-1), meaning we normalize per token.
+# Avoid Division by Zero: Small eps ensures numerical stability.
+# Learnable Parameters: gamma (scale) and beta (shift) allow the model to recover representational capacity.
+
