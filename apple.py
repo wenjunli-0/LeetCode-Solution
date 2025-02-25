@@ -1,6 +1,8 @@
+import random
 # Apple Machine Learning Research Engineer
 
 
+# interview-1
 # find the isolated island in a 2D matrix
 # grph = ["RRRRE", "RRERE", "RREEE", "EEEEE"]
 def count(graph):
@@ -35,5 +37,46 @@ graph = ["RRRRE", "RRERE", "RREEE", "EEEEE"]
 print(count(graph))     # 1
 
 
+# interview-2:
+# find the top k frequent queries in the list of queries
+# queries = ["tiktok", "apple", "meta", "tiktok", "apple", "apple"], k = 2
+def findFrequentQueries(queries, k):
+    # convert into dict
+    query_dict = {}
+    for query in queries:
+        if query not in query_dict:
+            query_dict[query] = 0
+        query_dict[query] += 1
+    print(f'query_dict={query_dict}')
 
+    # quick select find the k
+    nums = []
+    for freq in query_dict.values():
+        nums.append(freq)
+    print(f'nums={nums}')
+    kth_freq = quick_select(nums, len(nums)-k)
+
+    # find the top k queries
+    res =[]
+    for query, freq in query_dict.items():
+        if freq >= kth_freq:
+            res.append(query)
+    return res
+
+
+def quick_select(nums, k):
+    small, equal, big = [], [], []
+    pivot = random.choice(nums)
+    for num in nums:
+        if num < pivot:
+            small.append(num)
+        elif num == pivot:
+            equal.append(num)
+        else:
+            big.append(num)
+    if k <= len(small):
+        return quick_select(small, k)
+    elif k <= len(small) + len(equal):
+        return quick_select(equal, k-len(small))
+    return pivot
 
