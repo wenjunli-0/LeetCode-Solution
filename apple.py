@@ -80,3 +80,40 @@ def quick_select(nums, k):
         return quick_select(equal, k-len(small))
     return pivot
 
+
+# interview-3: a calculator class
+class Calculator:
+    def __init__(self, measurement, k):
+        self.measurement = measurement
+        self.k = k
+
+    def average_score(self):
+        # Get the last k elements from the message queue
+        last_k_results = self.measurement.queue[-self.k:]
+
+        # Get scores for valid results (exclude 'X')
+        valid_scores = [self.measurement.get_score(x) for x in last_k_results if x != 'X']
+
+        # Handle case where there are no valid results
+        if not valid_scores:
+            return None
+
+        # Calculate and return the average score
+        return sum(valid_scores) / len(valid_scores)
+
+# Example usage:
+class MeasurementResult:
+    def __init__(self):
+        self.queue = []
+    
+    def get_score(self, result):
+        # Simulated method to get a score from a result
+        return float(result)
+
+
+# Test case
+measurement = MeasurementResult([1, 2, 3, 4, 5, 1, 2, 3, 'X'])
+calc = Calculator(measurement, 5)
+print(calc.average_score())  # Should calculate average of [5, 1, 2, 3]
+
+
