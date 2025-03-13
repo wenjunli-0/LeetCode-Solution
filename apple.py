@@ -88,6 +88,9 @@ class Calculator:
         self.k = k
 
     def average_score(self):
+        # 两个队列做栈
+        
+
         # Get the last k elements from the message queue
         last_k_results = self.measurement.queue[-self.k:]
 
